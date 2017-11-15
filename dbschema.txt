@@ -1,0 +1,20 @@
+BEGIN;
+--
+-- Create model Item
+--
+CREATE TABLE "lost_and_found_item" ("id" integer NOT NULL PRIMARY KEY AUTOINCREMENT, "item_name" varchar(200) NULL, "item_category" varchar(200) NULL, "is_found" bool NOT NULL, "item_image" varchar(100) NOT NULL);
+--
+-- Create model Member
+--
+CREATE TABLE "lost_and_found_member" ("id" integer NOT NULL PRIMARY KEY AUTOINCREMENT, "first_name" varchar(200) NOT NULL, "last_name" varchar(200) NOT NULL, "city" varchar(100) NOT NULL, "username" varchar(200) NOT NULL, "email" varchar(100) NOT NULL, "user_id" integer NOT NULL REFERENCES "auth_user" ("id"));
+--
+-- Add field uploaded_by to item
+--
+ALTER TABLE "lost_and_found_item" RENAME TO "lost_and_found_item__old";
+CREATE TABLE "lost_and_found_item" ("id" integer NOT NULL PRIMARY KEY AUTOINCREMENT, "item_name" varchar(200) NULL, "item_category" varchar(200) NULL, "is_found" bool NOT NULL, "item_image" varchar(100) NOT NULL, "uploaded_by_id" integer NOT NULL REFERENCES "lost_and_found_member" ("id"));
+INSERpT INTO "lost_and_found_item" ("is_found", "item_image", "uploaded_by_id", "id", "item_name", "item_category") SELECT "is_found", "item_image", NULL, "id", "item_name", "item_category" FROM "lost_and_found_item__old";
+DROP TABLE "lost_and_found_item__old";
+CREATE INDEX "lost_and_found_member_e8701ad4" ON "lost_and_found_member" ("user_id");
+CREATE INDEX "lost_and_found_item_4095e96b" ON "lost_and_found_item" ("uploaded_by_id");
+
+COMMIT;
