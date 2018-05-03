@@ -6,7 +6,7 @@ from rest_framework.exceptions import NotFound
 
 # Create your models here.
 class Item(models.Model):
-    uploaded_by = models.ForeignKey(Member, null=False)
+    uploaded_by = models.ForeignKey(Member, on_delete=models.CASCADE)
     item_name = models.CharField(max_length=200, null=True)
     item_category = models.CharField(max_length=200,default="")
     is_found = models.BooleanField(default=False)

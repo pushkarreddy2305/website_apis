@@ -3,7 +3,7 @@ from rest_framework.response import Response
 
 
 @api_view(['POST'])
-def update_user_info(request):
+def update_user_info(request,username):
     from lost_and_found.serializers.user_profile import UserProfileSerializer
     from lost_and_found.utils.deserialize import deserialize
     request_data = deserialize(UserProfileSerializer, request.data)

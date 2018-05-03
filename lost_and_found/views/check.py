@@ -4,6 +4,7 @@ from rest_framework.response import Response
 
 @api_view(['POST'])
 def check(request, username,item_name,item_category):
+    print('in view')
     from lost_and_found.serializers.img import ImgSerializer
     from lost_and_found.utils.deserialize import deserialize
     request_data = deserialize(ImgSerializer, request.data)

@@ -8,7 +8,7 @@ from django.contrib.auth.models import User
 
 # Create your models here.
 class Member(models.Model):
-    user = models.ForeignKey(settings.AUTH_USER_MODEL)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.CASCADE)
     first_name = models.CharField(max_length=200)
     last_name = models.CharField(max_length=200)
     city = models.CharField(max_length=100)
@@ -116,4 +116,4 @@ class Member(models.Model):
                 member_obj.save()
                 return member_obj
         except:
-            raise ParseError("Student Profile cannot be Updated")
+            raise ParseError("Profile cannot be Updated")
